@@ -3633,9 +3633,9 @@ ZEND_API int zend_declare_property_ex(zend_class_entry *ce, zend_string *name, z
 			ce->default_static_members_table = perealloc(ce->default_static_members_table, sizeof(zval) * ce->default_static_members_count, ce->type == ZEND_INTERNAL_CLASS);
 		}
 		ZVAL_COPY_VALUE(&ce->default_static_members_table[property_info->offset], property);
-		//if (ce->type == ZEND_USER_CLASS) {
-			//ce->static_members_table = ce->default_static_members_table;
-		//}
+		if (ce->type == ZEND_USER_CLASS) {
+			ce->static_members_table = ce->default_static_members_table;
+		}
 	} else {
 		if ((property_info_ptr = zend_hash_find_ptr(&ce->properties_info, name)) != NULL &&
 		    (property_info_ptr->flags & ZEND_ACC_STATIC) == 0) {
