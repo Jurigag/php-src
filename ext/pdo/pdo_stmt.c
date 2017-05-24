@@ -2283,6 +2283,10 @@ void pdo_stmt_init(void)
 	pdo_dbstmt_ce->create_object = pdo_dbstmt_new;
 	zend_class_implements(pdo_dbstmt_ce, 1, zend_ce_traversable);
 	zend_declare_property_null(pdo_dbstmt_ce, "queryString", sizeof("queryString")-1, ZEND_ACC_PUBLIC);
+	zend_declare_property_null(pdo_dbstmt_ce, "test", sizeof("test")-1, ZEND_ACC_PROTECTED|ZEND_ACC_STATIC);
+	zval *tmp = zend_read_static_property(pdo_dbstmt_ce, "test", sizeof("test")-1, (zend_bool) ZEND_FETCH_CLASS_SILENT);
+	
+	php_var_dump(tmp, 1);
 
 	memcpy(&pdo_dbstmt_object_handlers, &std_object_handlers, sizeof(zend_object_handlers));
 	pdo_dbstmt_object_handlers.offset = XtOffsetOf(pdo_stmt_t, std);
